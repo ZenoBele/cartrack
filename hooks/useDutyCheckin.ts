@@ -255,8 +255,8 @@ export function useDutyCheckin({
 
   useEffect(() => {
     setStatus((current) =>
-      current === "submitting" ? current : derived.status,
-    );
+  current === "submitting" ? current : (derived.status as DutyStatus),
+);
     setMessage(derived.message);
   }, [derived.message, derived.status]);
 
