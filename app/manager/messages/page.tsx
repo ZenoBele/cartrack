@@ -40,7 +40,7 @@ function formatLabel(value?: string | null) {
 }
 
 function getMessageTime(message: MessageRow) {
-  return message.created_at;
+  return message.created_at ? new Date(message.created_at).getTime() : 0;
 }
 
 function getMessagePreview(message: MessageRow | null) {
@@ -147,8 +147,7 @@ export default function ManagerMessagesPage() {
         )
         .sort(
           (first, second) =>
-            new Date(getMessageTime(second)).getTime() -
-            new Date(getMessageTime(first)).getTime(),
+            getMessageTime(second) - getMessageTime(first),
         );
 
       return {
