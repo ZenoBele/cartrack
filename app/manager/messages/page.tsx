@@ -40,6 +40,10 @@ function formatLabel(value?: string | null) {
 }
 
 function getMessageTime(message: MessageRow) {
+  return message.created_at;
+}
+
+function getMessageTimestamp(message: MessageRow) {
   return message.created_at ? new Date(message.created_at).getTime() : 0;
 }
 
@@ -147,7 +151,7 @@ export default function ManagerMessagesPage() {
         )
         .sort(
           (first, second) =>
-            getMessageTime(second) - getMessageTime(first),
+            getMessageTimestamp(second) - getMessageTimestamp(first),
         );
 
       return {
@@ -427,8 +431,7 @@ function MessageThreadModal({
 
   const sortedMessages = [...conversation.messages].sort(
     (first, second) =>
-      new Date(getMessageTime(first)).getTime() -
-      new Date(getMessageTime(second)).getTime(),
+      getMessageTimestamp(first) - getMessageTimestamp(second),
   );
 
   const handleSend = async () => {
